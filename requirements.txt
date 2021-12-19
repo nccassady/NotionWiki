@@ -1,0 +1,2 @@
+notion-client==0.8.0
+wptools==0.4.17

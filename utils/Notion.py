@@ -64,7 +64,7 @@ class Notion:
     def getPropertyType(self, propertyName):
         return self.properties[propertyName]["type"]
 
-    def updateProperty(self, pageId, propertyName, newValue):
+    def updateTextProperty(self, pageId, propertyName, newValue):
         if type(newValue) == list:
             splitValues = [item.split(" (")[0] for item in newValue]
             newValue = ", ".join(splitValues)
@@ -75,6 +75,19 @@ class Notion:
             page_id=pageId,
             properties={
                 propertyName: {"rich_text": [{"text": {"content": newValue}}]},
+                "Update?": {"checkbox": False},
+            },
+        )
+
+        return newValue
+
+    def updateImage(self, pageId, propertyName, newValue):
+        self.client.pages.update(
+            page_id=pageId,
+            properties={
+                propertyName: {
+                    "files": [{"external": {"url": newValue}, "name": newValue}]
+                },
                 "Update?": {"checkbox": False},
             },
         )

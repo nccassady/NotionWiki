@@ -21,5 +21,6 @@ for page in pages:
         id = re.compile(".*\((P\d*)\).*").match(label).group(1)
 
         if id in wikiDataCodes:
-            if notion.getPropertyType(dataColumnMappings[id]) == "rich_text":
-                notion.updateProperty(page["id"], dataColumnMappings[id], value)
+            propertyType = notion.getPropertyType(dataColumnMappings[id])
+            if propertyType == "rich_text":
+                notion.updateTextProperty(page["id"], dataColumnMappings[id], value)

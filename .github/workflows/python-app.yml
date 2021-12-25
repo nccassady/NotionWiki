@@ -33,6 +33,6 @@ jobs:
     - name: Test with pytest
       env:
         api_secret: "secret_17p2Lzaq840jmajUEJefYmEmYrPEP1dB9iRGk4ls10a"
-        database_id: "0298b4ddc3e84d2089d3c930026d2eba"
+        database_id: "8c402fe806864c56833382420600418d"
       run: |
         pytest

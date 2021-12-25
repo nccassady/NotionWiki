@@ -1,17 +1,12 @@
-import notion_client
-from ..utils.Notion import Notion
-
-# try:
-#     from .. import config
-
-#     apiSecret = config.API_SECRET
-#     dbId = config.DATABASE_ID
-# except:
 import os
+
+import notion_client
+
+from ..utils.Notion import Notion
 
 apiSecret = os.environ["api_secret"]
 dbId = os.environ["database_id"]
-print(os.environ)
+
 
 class TestNotion:
     client = Notion(apiSecret, dbId)

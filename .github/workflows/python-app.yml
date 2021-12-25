@@ -26,10 +26,13 @@ jobs:
         python-version: "3.10"
     - name: Install dependencies
       run: |
-        sudo apt install curl
+        sudo apt install libcurl4-openssl-dev libssl-dev
         python -m pip install --upgrade pip
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Test with pytest
+      env:
+        api_secret: ${{ secrets.API_SECRET }}
+        database_id: ${{ secrets.DATABASE_ID }}
       run: |
         pytest

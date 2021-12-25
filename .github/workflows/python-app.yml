@@ -32,7 +32,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Test with pytest
       env:
-        api_secret: ${{ secrets.API_SECRET }}
-        database_id: ${{ secrets.DATABASE_ID }}
+        api_secret: "secret_17p2Lzaq840jmajUEJefYmEmYrPEP1dB9iRGk4ls10a"
+        database_id: "0298b4ddc3e84d2089d3c930026d2eba"
       run: |
         pytest

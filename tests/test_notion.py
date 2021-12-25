@@ -14,6 +14,7 @@ except:
 
 
 class TestNotion:
+    print(f"{type(apiSecret)}: {apiSecret}")
     client = Notion(apiSecret, dbId)
 
     def test_new_instance(self):

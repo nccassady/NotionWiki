@@ -1,10 +1,16 @@
-from .. import config
 import notion_client
 from ..utils.Notion import Notion
-
+try:
+    from .. import config
+    apiSecret = config.API_SECRET
+    dbId = config.DATABASE_ID
+except:
+    import os
+    apiSecret = os.environ['api_secret']
+    dbId = os.environ['database_id']
 
 class TestNotion:
-    client = Notion(config.API_SECRET, config.DATABASE_ID)
+    client = Notion(apiSecret, dbId)
 
     def test_new_instance(self):
         assert isinstance(self.client.client, notion_client.Client)

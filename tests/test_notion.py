@@ -1,20 +1,19 @@
 import notion_client
 from ..utils.Notion import Notion
 
-try:
-    from .. import config
+# try:
+#     from .. import config
 
-    apiSecret = config.API_SECRET
-    dbId = config.DATABASE_ID
-except:
-    import os
+#     apiSecret = config.API_SECRET
+#     dbId = config.DATABASE_ID
+# except:
+import os
 
-    apiSecret = os.environ["api_secret"]
-    dbId = os.environ["database_id"]
-
+apiSecret = os.environ["api_secret"]
+dbId = os.environ["database_id"]
+print(os.environ)
 
 class TestNotion:
-    print(f"{type(apiSecret)}: {apiSecret}")
     client = Notion(apiSecret, dbId)
 
     def test_new_instance(self):

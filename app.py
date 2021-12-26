@@ -1,10 +1,10 @@
+import os
 import re
 
-import config
 from utils.Notion import Notion
 from utils.Wiki import Wiki
 
-notion = Notion(config.API_SECRET, config.DATABASE_ID)
+notion = Notion(os.environ["api_secret"], os.environ["dataase_id"])
 
 pages = notion.getPagesToUpdate()
 

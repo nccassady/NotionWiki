@@ -1,0 +1,13 @@
+version: 2
+
+# Set the version of Python and other tools you might need
+build:
+  os: ubuntu-20.04
+  apt_packages:
+    - libcurl4-openssl-dev
+    - libssl-dev
+  tools:
+    python: "3.9"
+
+mkdocs:
+  configuration: mkdocs.yml

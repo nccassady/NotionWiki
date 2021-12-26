@@ -1,12 +1,11 @@
-import wptools
-from ..utils.Wiki import Wiki
+from ..src.utils.Wiki import Wiki
 
 
 class TestWiki:
     result = Wiki("Hericium erinaceus")
 
     def test_new_instance(self):
-        assert isinstance(self.result.page, wptools.page)
+        assert self.result.page
 
     def test_load_data(self):
         self.result.getData()

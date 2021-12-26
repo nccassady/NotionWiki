@@ -2,7 +2,7 @@ import os
 
 import notion_client
 
-from ..utils.Notion import Notion
+from ..src.utils.Notion import Notion
 
 apiSecret = os.environ["api_secret"]
 dbId = os.environ["database_id"]

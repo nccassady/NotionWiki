@@ -1,17 +1,29 @@
+import logging
 import re
 
 from utils.Notion import Notion
 from utils.Wiki import Wiki
 
 
+logger = logging.getLogger()
+
+logger.info("Starting Notion<-Wiki Sync")
+
+
 def run(notionClient):
 
     pages = notionClient.getPagesToUpdate()
 
+    logger.info(f"Found {len(pages)} to update.")
+
     wikiDataCodes = list(notionClient.getWikiDataIds())
 
+    logger.info(f"Found {len(wikiDataCodes)} columns containing WikiData codes.")
+
     dataColumnMappings = notionClient.getIdColumnMapping()
+
     itemsUpdated = 0
+
     for page in pages:
         name = notionClient.getPageTitle(page)
         wiki = Wiki(name, labels=wikiDataCodes)
@@ -28,6 +40,8 @@ def run(notionClient):
                     )
                     itemsUpdated += 1
 
+    logger.info(f"Updated {itemsUpdated} cells!")
+
     return itemsUpdated
 
 
@@ -42,6 +56,8 @@ def lambda_handler(event, context):
     """
     notion = Notion(event["api_secret"], event["database_id"])
 
+    logger.info("Running Updates.")
     result = run(notion)
     response = {"result": result}
+
     return response

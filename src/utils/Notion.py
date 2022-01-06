@@ -1,6 +1,9 @@
+import logging
 import re
 
 import notion_client
+
+log = logging.getLogger()
 
 
 class Notion:
@@ -15,6 +18,8 @@ class Notion:
         self.databaseId = databaseId
         self.database = self.client.databases.retrieve(database_id=databaseId)
         self.properties = self.database["properties"]
+        self.mapping = {}
+        log.debug("Notion client created")
 
     def checkForUpdateColumn(self):
         """Checks if database has a checkbox property with 'update' in the name
@@ -27,6 +32,7 @@ class Notion:
 
         for name, data in self.properties.items():
             if data["type"] == "checkbox" and "update" in name.lower():
+                log.info("Update column found")
                 updateColumn = name
 
         return updateColumn
@@ -46,16 +52,17 @@ class Notion:
         Returns:
             dict: [str, str]
         """
-        mapping = {}
 
-        for name, properties in self.properties.items():
-            pattern = re.compile(".*\((P\d*)\).*")
-            matches = pattern.match(name)
+        if not self.mapping:
+            log.info("Loading properties mapping")
+            for name, properties in self.properties.items():
+                pattern = re.compile(".*\((P\d*)\).*")
+                matches = pattern.match(name)
 
-            if matches:
-                mapping[matches.group(1)] = name
+                if matches:
+                    self.mapping[matches.group(1)] = name
 
-        return mapping
+        return self.mapping
 
     def getPagesToUpdate(self):
         """Gets the pages to update. If there is an update column, it will filter to only pages where the Update box is checkd.
